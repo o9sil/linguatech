@@ -1,0 +1,25 @@
+services:
+  db:
+    image: mariadb:10.9
+    container_name: linguatech-db
+    ports:
+      - "3306:3306"
+    environment:
+      MARIADB_DATABASE: linguatech
+      MARIADB_ROOT_PASSWORD: root
+      MARIADB_USER: tech
+      MARIADB_PASSWORD: tech1234
+    volumes:
+      - ./docker/init.sql:/docker-entrypoint-initdb.d/init.sql
+
+  app:
+    build: .
+    container_name: linguatech-app
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mariadb://db:3306/linguatech
+      SPRING_DATASOURCE_USERNAME: tech
+      SPRING_DATASOURCE_PASSWORD: tech1234

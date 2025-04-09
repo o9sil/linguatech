@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: linguatech
+
+  datasource:
+    url: jdbc:mariadb://db:3306/linguatech
+    username: tech
+    password: tech1234
+
+  jpa:
+    hibernate:
+      ddl-auto: update
